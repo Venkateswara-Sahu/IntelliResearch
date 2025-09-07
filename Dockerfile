@@ -16,14 +16,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose ports
-EXPOSE 8501 8000
+EXPOSE 8501 8001
 
 # Create entrypoint script
 RUN echo '#!/bin/bash\n\
 if [ "$1" = "api" ]; then\n\
-    uvicorn api:app --host 0.0.0.0 --port 8000\n\
+    uvicorn intelliresearch.api:app --host 0.0.0.0 --port 8001\n\
 elif [ "$1" = "web" ]; then\n\
-    streamlit run app.py --server.port 8501 --server.address 0.0.0.0\n\
+    streamlit run intelliresearch/app.py --server.port 8501 --server.address 0.0.0.0\n\
 else\n\
     python run.py\n\
 fi' > /entrypoint.sh && chmod +x /entrypoint.sh
