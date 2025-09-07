@@ -189,7 +189,7 @@ IntelliResearch solves these challenges by implementing a sophisticated multi-ag
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/IntelliResearch.git
+git clone https://github.com/Venkateswara-Sahu/IntelliResearch.git
 cd IntelliResearch
 ```
 
@@ -367,9 +367,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **Project Link**: [https://github.com/yourusername/IntelliResearch](https://github.com/yourusername/IntelliResearch)
+- **Project Link**: [https://github.com/yourusername/IntelliResearch](https://github.com/Venkateswara-Sahu/IntelliResearch)
 - **Documentation**: [https://intelliresearch-docs.readthedocs.io](https://intelliresearch-docs.readthedocs.io)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/IntelliResearch/issues)
+- **Issues**: [GitHub Issues](https://github.com/Venkateswara-Sahu/IntelliResearch/issues)
 - **Email**: intelliresearch@example.com
 
 ## 🚦 Project Status
