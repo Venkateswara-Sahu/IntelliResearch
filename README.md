@@ -367,10 +367,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **Project Link**: [https://github.com/yourusername/IntelliResearch](https://github.com/Venkateswara-Sahu/IntelliResearch)
+- **Project Link**: [https://github.com/Venkateswara-Sahu/IntelliResearch](https://github.com/Venkateswara-Sahu/IntelliResearch)
 - **Documentation**: [https://intelliresearch-docs.readthedocs.io](https://intelliresearch-docs.readthedocs.io)
 - **Issues**: [GitHub Issues](https://github.com/Venkateswara-Sahu/IntelliResearch/issues)
-- **Email**: intelliresearch@example.com
+- **Email**: venkateswarsahu000@gmail.com
 
 ## 🚦 Project Status
 
