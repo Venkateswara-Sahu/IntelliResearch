@@ -109,7 +109,7 @@ def run_streamlit():
     webbrowser.open("http://localhost:8501")
 
     try:
-        subprocess.run(["streamlit", "run", "app.py"])
+        subprocess.run(["streamlit", "run", "intelliresearch/app.py"])
     except KeyboardInterrupt:
         print("\n🛑 Streamlit server stopped")
 
@@ -117,16 +117,16 @@ def run_streamlit():
 def run_api():
     """Run FastAPI server"""
     print("\n🚀 Starting FastAPI Server...")
-    print("📍 API Documentation at http://localhost:8000/docs")
+    print("📍 API Documentation at http://localhost:8001/docs")
     print("📍 Alternative docs at http://localhost:8000/redoc")
     print("\nPress Ctrl+C to stop the server\n")
 
     # Open browser after a short delay
     time.sleep(2)
-    webbrowser.open("http://localhost:8000/docs")
+    webbrowser.open("http://localhost:8001/docs")
 
     try:
-        subprocess.run(["uvicorn", "api:app", "--reload", "--port", "8000"])
+        subprocess.run(["uvicorn", "intelliresearch.api:app", "--reload", "--port", "8001"])
     except KeyboardInterrupt:
         print("\n🛑 API server stopped")
 
@@ -135,7 +135,7 @@ def run_cli():
     """Run command line interface"""
     print("\n💻 Starting Command Line Interface...")
     import asyncio
-    from main import MultiAgentOrchestrator, ResearchTask
+    from intelliresearch.main import MultiAgentOrchestrator, ResearchTask
 
     print("\n" + "=" * 60)
     print("INTELLIRESEARCH CLI")
@@ -210,13 +210,13 @@ def run_cli():
 
 def start_api():
     """Helper function to start the API server"""
-    subprocess.run(["uvicorn", "api:app", "--port", "8000"])
+    subprocess.run(["uvicorn", "intelliresearch.api:app", "--port", "8001"])
 
 def run_both():
     """Run both Streamlit and FastAPI"""
     print("\n🎯 Starting both Web Interface and API Server...")
     print("\n📍 Web Interface: http://localhost:8501")
-    print("📍 API Documentation: http://localhost:8000/docs")
+    print("📍 API Documentation: http://localhost:8001/docs")
     print("\nPress Ctrl+C to stop both servers\n")
 
     # Start API server in a separate process
@@ -227,12 +227,12 @@ def run_both():
     time.sleep(3)
 
     # Open browsers
-    webbrowser.open("http://localhost:8000/docs")
+    webbrowser.open("http://localhost:8001/docs")
     webbrowser.open("http://localhost:8501")
 
     try:
         # Run Streamlit in main process
-        subprocess.run(["streamlit", "run", "app.py"])
+        subprocess.run(["streamlit", "run", "intelliresearch/app.py"])
     except KeyboardInterrupt:
         print("\n🛑 Stopping servers...")
         api_process.terminate()
@@ -261,7 +261,7 @@ def view_docs():
         else:
             print("README.md not found!")
     elif choice == "2":
-        webbrowser.open("http://localhost:8000/docs")
+        webbrowser.open("http://localhost:8001/docs")
         print("Opening API documentation in browser...")
     elif choice == "3":
         print("\n🏗️ Agent Architecture:")
@@ -327,14 +327,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose ports
-EXPOSE 8501 8000
+EXPOSE 8501 8001
 
 # Create entrypoint script
 RUN echo '#!/bin/bash\\n\\
 if [ "$1" = "api" ]; then\\n\\
-    uvicorn api:app --host 0.0.0.0 --port 8000\\n\\
+    uvicorn intelliresearch.api:app --host 0.0.0.0 --port 8001\\n\\
 elif [ "$1" = "web" ]; then\\n\\
-    streamlit run app.py --server.port 8501 --server.address 0.0.0.0\\n\\
+    streamlit run intelliresearch/app.py --server.port 8501 --server.address 0.0.0.0\\n\\
 else\\n\\
     python run.py\\n\\
 fi' > /entrypoint.sh && chmod +x /entrypoint.sh
@@ -345,10 +345,9 @@ CMD ["web"]
 
     # Write Dockerfile to root
     dockerfile_path = project_root / "Dockerfile"
-    if not dockerfile_path.exists():
-        with open(dockerfile_path, "w") as f:
-            f.write(dockerfile_content)
-        print("✅ Created Dockerfile")
+    with open(dockerfile_path, "w") as f:
+        f.write(dockerfile_content)
+    print("✅ Created/Updated Dockerfile")
 
     # docker-compose.yml content
     compose_content = """services:
@@ -372,7 +371,7 @@ CMD ["web"]
       dockerfile: Dockerfile
     command: api
     ports:
-      - "8000:8000"
+      - "8001:8001"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - DEMO_MODE=${DEMO_MODE:-false}
@@ -389,10 +388,9 @@ CMD ["web"]
 
     # Write docker-compose.yml to root
     compose_path = project_root / "docker-compose.yml"
-    if not compose_path.exists():
-        with open(compose_path, "w") as f:
-            f.write(compose_content)
-        print("✅ Created docker-compose.yml")
+    with open(compose_path, "w") as f:
+        f.write(compose_content)
+    print("✅ Created/Updated docker-compose.yml")
 
     print("\n📋 Docker commands:")
     print("  Build: docker-compose build")
@@ -409,6 +407,7 @@ CMD ["web"]
         run = input("\n🚀 Start containers? (y/n): ").lower()
         if run == 'y':
             subprocess.run(["docker-compose", "up"], cwd=project_root)
+
 
 
 def main():
